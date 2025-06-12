@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+}
+h1{
+    background-color: #dd7973;
+    border: black,solid,3px;
+}
+body{
+    box-sizing: border-box;
+    font-family: 'MedievalSharp', serif;
+    font-size: 14px;
+    background-color: whitesmoke;
+    text-align: center;
+    line-height: 1.6;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+footer{
+    box-sizing: border-box;
+    font-family: 'MedievalSharp', serif;
+    font-size: 14px;
+    background-color: whitesmoke;
+    text-align: center;
+    line-height: 1.6;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+}
+
+
+table{
+    text-align: center;
+    color:black;
+    border:rgb(181, 60, 60) 3px, solid;
+    background-color:rosybrown ;
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+button{
+    background-color: whitesmoke;
+    border: black, 3px, solid;
+    padding:1%;
+}
+
+button:hover{
+    background-color: burlywood;
+    border: whitesmoke, 3px, solid;
+
+}
+td{
+    color:black;
+    border: lightcoral, 3px, solid;
+    background-color: lightsalmon;
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-family: 'MedievalSharp', serif;
+    text-align: left;
+    
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    unicode-bidi: isolate;
+    border-color: inherit;
+}
+
+#quizcontainer{
+    background-color: whitesmoke;
+}
+
+form{
+    background-color: whitesmoke;
+    padding: 2%;
+}
+
+fieldset{
+    background-color: antiquewhite;
+    border: 3px,slategray,dashed;
+    text-align: left;
+}
+
+legend{
+    margin-bottom: 6px;
+}
+
+
+div{
+    background-color: #dd7973 ;
+    border:3px solid black;
+    padding: 10px 16px;
+    width: center 15%;
+    font-family: 'MedievalSharp', serif;
+}
+
+input[type="radio"] {
+    margin-left: 2%;
+}
+
+th{
+    background-color: brown;
+    font-family: 'MedievalSharp', serif;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th:hover {
+    background-color: brown;
+    color:lightyellow;
+    font-family: 'MedievalSharp', serif;
+    cursor:pointer;
+}
+
+#index{
+    text-align: center;
+}
+img{
+    border: black,solid,3px;
+}
+
+.arrow {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+.arrow.asc::after {
+  content: "▲";
+}
+
+.arrow.desc::after {
+  content: "▼";
+}
+

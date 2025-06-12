@@ -1,0 +1,39 @@
+<script src="api.js"></script>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Classement</title>
+    <link rel="stylesheet" href="conf/styles.css">
+    <script src="conf/sort_table.js"></script>
+    <script src="conf/search.js"></script>
+    <h1>Bienvenue Champion, Toujours en haut du podium ?</h1>
+</head>
+
+<body>
+    <p>vous pouvez clicker sur les titres du tableau pour filtrer de haut en bas ou inversement</p>
+    <p>Ou utiliser la barre de recherche qui fonctionne pour toute les colonnes</p>
+    <fieldset>
+        <legend><input id="searchclass" onkeyup="search('searchclass','class')" type="text" name="recherche" class="search" placeholder="Ou je suis ?"></legend>
+    <table id="class">
+        <tbody id="ranking">
+            <tr>
+                <th class="onclick" onclick="sortTable('class',0)"id="USERID">USERID<span class="arrow"></span></th>
+                <th class="onclick" onclick="sortTable('class',1)"id="PSEUDO">PSEUDO<span class="arrow"></span></th>
+                <th class="onclick" onclick="sortTable('class',2)"id="POINT">POINT<span class="arrow"></span></th>
+                <th class="onclick" onclick="sortTable('class',3)"id="RANK">RANK<span class="arrow"></span></th>
+            </tr>
+        </tbody>
+    </table>
+    </fieldset>
+    <script>rankClasser()</script>
+    
+</body>
+<footer>
+    <div>
+        <button type="submit" onclick="window.location.href='index.html'">Retour menu</button>
+        <p>© 2025 questionnaire Delaware. Tous droits réservés.</p>
+    </div>
+</footer>
+</html>

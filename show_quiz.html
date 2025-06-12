@@ -1,0 +1,125 @@
+<script src="api.js"></script>
+<script>
+
+function quizBody(){
+    
+    const listReponseA = ["A. La gestion des ressources humaines","A. 10","A. Solutions de gestion des ressources humaines","A. Prix de l'innovation technologique","A. 1000","A. La gestion de la chaîne d'approvisionnement","A. Conférence sur l'innovation technologique","A. Le secteur de la santé","A. Transformation numérique","A. Optimisation de la consommation énergétique","A. Réduction des coûts","A. Réduction des coûts","A. Petites entreprises","A. Gestion des ressources humaines","A. Gestion des ressources humaines","A. Réduction des coûts","A. Recrutement","A. Réduction des coûts","A. Stratégie de marketing digital","A. Réduction des coûts"];
+    // liste des réponse A pour les question 1 à 20
+    const listReponseB = ["B. La transformation numérique","B. 15","B. Solutions de fabrication numérique","B. SAP Pinnacle Award 2025","B. 2000","B. La gestion des ressources humaines","B. Sommet mondial de la transformation numérique","B. Le secteur de l'éducation","B. Transformation organisationnelle","B. Gestion des ressources humaines","B. Amélioration de l'efficacité et de la productivité","B. Flexibilité et évolutivité","B. Moyennes entreprises","B. Gestion de la chaîne d'approvisionnement","B. Optimisation des processus opérationnels","B. Amélioration de la visibilité financière","B. Formation et développement","B. Amélioration de la rétention des employés","B. Gestion des ressources humaines","B. Amélioration de l'efficacité opérationnelle"];
+    // liste des réponse B pour les question 1 à 20
+    const listReponseC = ["C. La gestion de la chaîne d'approvisionnement","C. 19","C. Solutions de marketing digital","C. Prix de la meilleure entreprise de conseil","C. 3000","C. Le marketing digital","C. Forum de la gestion des ressources humaines","C. Le secteur manufacturier","C. Transformation financière","C. Marketing digital","C. Augmentation des ventes","C. Sécurité renforcée","C. Grandes entreprises","C. Marketing digital","C. Marketing digital","C. Augmentation des ventes","C. Gestion des talents","C. Augmentation des ventes","C. Optimisation des processus opérationnels","C. Augmentation des ventes"];
+    // liste des réponse C pour les question 1 à 20
+    const listReponseD = ["D. Le conseil en stratégie","D. 25","D. Solutions de gestion financière","D. Prix de la meilleure stratégie de marketing","D. 4000","D. La gestion financière","D. Salon international de la finance","D. Le secteur de la finance","D. Transformation marketing","D. Gestion financière","D. Amélioration de la satisfaction client","D. Amélioration de la collaboration","D. Startups","D. Gestion financière","D. Gestion financière","D. Amélioration de la satisfaction client","D. Gestion de la paie","D. Amélioration de la satisfaction client","D. Gestion financière","D. Amélioration de la satisfaction client"];
+    // liste des réponse D pour les question 1 à 20
+
+    let i = 0;
+    let x = 1;
+    
+    while(i < 20){
+        
+        let ol = `        
+        <fieldset userid="fieldset${i}">
+        <ol userid="ol${i}">
+            <p id="question${i}"> Question : ${x} </p>
+            <div userid="div${i}">
+                <input class="radio" type="radio" id="A${i}" name="question${i}" value="A">
+                <label class="labelradio" id="labelA${i}" for="A${i}">${listReponseA[i]}</label><br>
+                
+                <input class="radio" type="radio" id="B${i}" name="question${i}" value="B">
+                <label class="labelradio" id="labelB${i}" for="B${i}">${listReponseB[i]}</label><br>
+                <br>
+                <input class="radio" type="radio" id="C${i}" name="question${i}" value="C">
+                <label class="labelradio" id="labelC${i}" for="C${i}">${listReponseC[i]}</label>
+                <br>
+                <input class="radio" type="radio" id="D${i}" name="question${i}" value="D">
+                <label class="labelradio" id="labelD${i}" for="D${i}">${listReponseD[i]}</label>
+
+                <p id="correction${i}"></p>
+            </div>
+        </ol>
+        </fieldset> <br>`;
+
+        let quizContainer = document.getElementById('quizContainer');
+        quizContainer.innerHTML += ol;
+
+        i++;
+        x++;
+    }
+}
+
+function lockQuiz() {//vérouilles les radios et le bouton evoyer vos réponse à la fin d'une partie
+    let radios = document.getElementsByTagName("input");
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].type === "radio") {
+            radios[i].disabled = true;
+        }
+    }
+
+    let endgame = document.getElementById("send");
+    if(endgame.type === "submit"){
+        endgame.disabled = true;
+    }
+}
+
+</script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="conf/styles.css">
+    <h1>bienvenue Challenger pret à montrer à tous que tes le meilleur !</h1>
+</head>
+<body>
+    
+    <form id="questionnaire" method="get" action="show_quiz.html">
+        <legend>
+            <h3>Questionnaire Delaware : </h3>
+            <p>Règle :  veuillez répondre à toute les questions même si vous n'etes pas sur de votre réponse</p>
+            <p>Vous pouvez donner qu'une réponse par question.</p>
+            <p>un compte et id aléatoire s'affichera quand vous enverrez votre réponses</p>        
+        </legend>
+        <div id="quizContainer"></div>
+       
+        <div>
+            <button id="send" type="submit">envoyer vos réponse</button>
+            <p id="pointgagner"></p>
+            <h5 id="showChallenger"></h5>
+        </div>
+    </form>
+
+
+    <script>
+        quizBody();//appelle la fonction local
+        loadQuestions();//appelle fonction api.js
+
+        document.getElementById('send').addEventListener('click', function(event) {//fonction appeler à la fin de la partie
+
+            lock = document.getElementById("send");
+            lock.addEventListener("click", lockQuiz());
+
+            correction = document.getElementById("send");
+            correction.addEventListener("click", userCorrection());
+
+            senddata = document.getElementById("send");
+            senddata.addEventListener("click", sauvegarde());
+
+
+
+            event.preventDefault(); // Empêche le rafraîchissement de la page
+            console.log('Le bouton a été cliqué sans rafraîchissement de la page.');
+        });
+    </script>
+</body>
+
+<footer>
+    <div>
+        <button onclick="window.location.href='show_ranking.html'" name="show_ranks" type="submit">voire le classement</button>
+        <p>© 2025 questionnaire Delaware. Tous droits réservés.</p>
+    </div>
+
+</footer>
+</html>
