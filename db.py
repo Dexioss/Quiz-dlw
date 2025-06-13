@@ -1,13 +1,17 @@
 import mysql.connector
 from contextlib import contextmanager
+import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
 def get_db():
-    cnx = mysql.connector.connect(#connection au serveur et à la base de donnée précise
+    cnx = mysql.connector.connect(
         host="127.0.0.1",
         port=3306,
-        user="root",
-        password="",
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
         database="questionnaire"
     )
     return cnx
@@ -16,8 +20,7 @@ def get_db():
 def start_db():
     cnx = get_db()
     try:
-        print("Db startingf")
+        print("Db starting")
         yield cnx
     finally:
         cnx.close()
-        

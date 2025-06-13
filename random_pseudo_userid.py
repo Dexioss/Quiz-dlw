@@ -4,7 +4,7 @@ from db import get_db
 def get_userid():
     a = 0
     b = 1000
-    userid = random.randint(a,b)#choisi une id entre 0 et 1000
+    userid = random.randint(a,b)#chose an id between 0 and 1000
     
     cnx = get_db()
     mycursor = cnx.cursor()
@@ -13,7 +13,7 @@ def get_userid():
     
     result = mycursor.fetchone()
     
-    while result is not None:#tant que le userid est déja utilisé relance
+    while result is not None:#retry if the userid alreday exist
         userid = random.randint(a, b)
         mycursor.execute(sql, (userid,))
         result = mycursor.fetchone()
@@ -27,9 +27,10 @@ def get_userid():
 
     
 
-def get_pseudo():#liste de 1001 pseudo
+def get_pseudo():#list of 1001 pseudo
     
-    pseudo = ["DragonSlayer","ShadowHunter","MysticMage","ThunderWarrior","SilentAssassin","FireSorcerer","IceQueen","DarkKnight","LightBringer",
+    pseudo = ["DragonSlayer","ShadowHunter","MysticMage","ThunderWarrior","SilentAssassin","FireSorcerer","IceQueen","DarkKnight",  
+              "LightBringer",
               "StormRider","PhantomThief","IronFist","GhostRider","BladeMaster","StarGazer","MoonWalker","SunSeeker","WindWhisperer","EarthShaker",
               "WaterBender","NightCrawler","FlameThrower","FrostGiant","StoneGuardian","SkyDancer","SeaSerpent","ForestElf","DesertNomad",
               "MountainKing","RiverSprite","BattleMage","Warlock","Necromancer","Paladin","Ranger","Druid","Bard","Monk","Rogue","Cleric",
@@ -50,7 +51,7 @@ def get_pseudo():#liste de 1001 pseudo
     
     result = mycursor.fetchone()
     
-    while result is not None:#tant que le pseudo est déja utilisé relance
+    while result is not None:#retry if the pseudo is already used
         pseudo = random.choice(pseudo)
         mycursor.execute(sql, (pseudo,))
         result = mycursor.fetchone()
@@ -58,7 +59,3 @@ def get_pseudo():#liste de 1001 pseudo
     cnx.commit()
     cnx.close()
     return pseudo
-
-
-
-

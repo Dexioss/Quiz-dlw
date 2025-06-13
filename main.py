@@ -2,12 +2,11 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 
-from db import get_db  # fonction pour la base de donnée
+from db import get_db#function to connect to the database
 from classement import Ranks
-from random_pseudo_userid import get_userid, get_pseudo#crée un nouvel utilisateur
+from random_pseudo_userid import get_userid, get_pseudo#function to create a new user
 
 import uvicorn
-
 from pydantic import BaseModel
 
 
@@ -16,15 +15,15 @@ app = FastAPI()
 
 app.add_middleware(# CORS middleware configuration
     CORSMiddleware,
-    allow_origins=["*"],  #autorises toutes les origines
+    allow_origins=["*"],  #allow all the origines
     allow_credentials=True,
-    allow_methods=["*"],  #autorises toute les méthodes
-    allow_headers=["*"],  #autorises tous les headers
+    allow_methods=["*"],  #allow all the methodes
+    allow_headers=["*"],  #allow all the headers
 )
 
 
 
-@app.get("/questionnaire/utilisateur")  # vas chercher les utilisateurs (userid/pseudo/point) depuis la base donnée
+@app.get("/questionnaire/utilisateur")  # get the users (userid/pseudo/point) from the database
 def get_all_users(db: mysql.connector.MySQLConnection = Depends(get_db)):
     cursor = db.cursor()
     cursor.execute("SELECT * FROM utilisateur")
@@ -32,7 +31,7 @@ def get_all_users(db: mysql.connector.MySQLConnection = Depends(get_db)):
     
     return {"user": user_data}
 
-@app.get("/questionnaire/quiz")  # vas chercher les question et réponses de la base de donnée
+@app.get("/questionnaire/quiz")  # get the question and their answer from the database
 def get_all_questions(db: mysql.connector.MySQLConnection = Depends(get_db)):
     cursor = db.cursor()
     cursor.execute("SELECT * FROM quiz")
@@ -42,7 +41,7 @@ def get_all_questions(db: mysql.connector.MySQLConnection = Depends(get_db)):
 
 
 
-@app.get("/new_challenger")#vas chercher le nouvelle utilisateur avec de nouvelle userid et pseudo
+@app.get("/new_challenger")#the API give the client a new random user
 def launch_New_User():
     newchallenger = get_userid(), get_pseudo()
     return{"newchallenger" : newchallenger}
@@ -55,7 +54,7 @@ class User(BaseModel):
     point:int
     rank:int
 
-@app.post("/save_game_user")#recois la data de l'utilisateur
+@app.post("/save_game_user")#receive the point and users of the last game
 def save(user: User,db: mysql.connector.MySQLConnection = Depends(get_db)):
     
     userid = user.userid
@@ -69,20 +68,11 @@ def save(user: User,db: mysql.connector.MySQLConnection = Depends(get_db)):
     mycursor.execute(sql,val)
     db.commit()
     
-    Ranks()#class tout les joueurs à chaque fin de partie
+    Ranks()#reranks every users of the database 
     
     return {"message": "Data received", "user": user}
-
-
-    
-    
-    
- 
-    
-    
-        
     
     
 
 
-uvicorn.run(app, host="127.0.0.1", port=8000)
+uvicorn.run(app, host="127.0.0.1", port=8000)#launch the API
